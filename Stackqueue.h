@@ -39,7 +39,10 @@ public:
 
         return value;
     }
-};
 
+   bool empty(){
+    return top == nullptr;
+   }
+};
 #endif
    

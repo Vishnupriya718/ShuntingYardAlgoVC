@@ -7,12 +7,13 @@ int main(){
 
     Stack s;
 
-    s.push('3');
-    s.push('+');
-    s.push('5');
+    if(s.empty())
+        cout << "Stack is empty" << endl;
 
-    cout << "Pop: " << s.pop() << endl;
-    cout << "Peek after pop: " << s.peek() << endl;
+    s.push('3');
+
+    if(!s.empty())
+        cout << "Stack is not empty" << endl;
 
     return 0;
 }
