@@ -7,7 +7,17 @@ int main(){
 
     Stack s;
 
-    cout << "Stack created successfully" << endl;
+    s.push('3');
+    s.push('+');
+    s.push('5');
+
+    cout << "Pop: " << s.pop() << endl;
+    cout << "Peek after pop: " << s.peek() << endl;
 
     return 0;
 }
+
+   
+   
+
+   
