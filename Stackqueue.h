@@ -5,18 +5,19 @@
 #include <iostream>
 using namespace std;
 
+
+// STACK CLASS
 class Stack{
 public:
+
     Node* top = nullptr;
 
-    // push element onto stack
     void push(char value){
         Node* temp = new Node(value);
         temp->next = top;
         top = temp;
     }
 
-    // look at top element
     char peek(){
         if(top == nullptr)
             return '\0';
@@ -24,7 +25,6 @@ public:
         return top->data;
     }
 
-    // remove top element
     char pop(){
 
         if(top == nullptr)
@@ -40,9 +40,53 @@ public:
         return value;
     }
 
-   bool empty(){
-    return top == nullptr;
-   }
-};
+    bool empty(){
+        return top == nullptr;
+    }
+};   // ← IMPORTANT
+
+
+// QUEUE CLASS
+class Queue{
+public:
+
+    Node* front = nullptr;
+    Node* rear = nullptr;
+
+    void enqueue(char value){
+
+        Node* temp = new Node(value);
+
+        if(rear == nullptr){
+            front = rear = temp;
+        }
+        else{
+            rear->next = temp;
+            rear = temp;
+        }
+    }
+
+    char dequeue(){
+
+        if(front == nullptr)
+            return '\0';
+
+        Node* temp = front;
+        char value = temp->data;
+
+        front = front->next;
+
+        if(front == nullptr)
+            rear = nullptr;
+
+        delete temp;
+
+        return value;
+    }
+
+    bool empty(){
+        return front == nullptr;
+    }
+};   // ← IMPORTANT
+
 #endif
-   

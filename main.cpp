@@ -1,19 +1,11 @@
 #include <iostream>
 #include "Stackqueue.h"
-
-using namespace std;
-
 int main(){
 
     Stack s;
+    Queue q;
 
-    if(s.empty())
-        cout << "Stack is empty" << endl;
-
-    s.push('3');
-
-    if(!s.empty())
-        cout << "Stack is not empty" << endl;
+    cout << "Queue created successfully" << endl;
 
     return 0;
 }
