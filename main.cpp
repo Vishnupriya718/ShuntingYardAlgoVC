@@ -34,13 +34,29 @@ int main() {
 	output.enqueue(c);
 	
     }
+      // if operator to the handle precendence
+      else if (isOperator(c)){
+	while (!operators.empty() &&
+	       precedence(operators.peek()) >= precedence(c)){
+
+	  output.enqueue(operators.pop());
+	}
+
+	operators.push(c);
+      }
+      
  }
     // print queue after loop 
-    cout <<"Queue:";
+    cout <<"Postfix: ";
     
     while(!output.empty()){
       cout << output.dequeue() << " ";
-    } 
+    }
+
+    while(!operators.empty()){
+      output.enqueue(operators.pop());
+    }
+			   
 
     cout << endl;
 
