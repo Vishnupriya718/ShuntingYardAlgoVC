@@ -26,20 +26,24 @@ int main() {
     stringstream ss(expr);
     string token;
 
+    //process tokens
     while(ss >> token){
       char c = token[0];
+
       if(isdigit(c)){
 	output.enqueue(c);
 	
     }
+ }
+    // print queue after loop 
+    cout <<"Queue:";
+    
+    while(!output.empty()){
+      cout << output.dequeue() << " ";
+    } 
+
+    cout << endl;
 
     return 0;
-}
-    cout <<"Queue:";
-    while(!output.empty()){
-      cout<< output.dequeue()<<"";
-    }
-
-    cout<<endl;
 }
 
