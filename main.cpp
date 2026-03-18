@@ -16,17 +16,30 @@ bool isOperator(char c){
     return c=='+' || c=='-' || c=='*' || c=='/' || c=='^';
 }
 
-int main(){
+int main() {
 
     string expr = "3 + 4 * 2";
 
+    Stack operators;
+    Queue output;
+    
     stringstream ss(expr);
     string token;
 
     while(ss >> token){
-        cout << "Token: " << token << endl;
+      char c = token[0];
+      if(isdigit(c)){
+	output.enqueue(c);
+	
     }
 
     return 0;
+}
+    cout <<"Queue:";
+    while(!output.empty()){
+      cout<< output.dequeue()<<"";
+    }
+
+    cout<<endl;
 }
 
