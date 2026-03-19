@@ -46,15 +46,16 @@ int main() {
       }
       
  }
+    // moving the operators first
+    while(!operators.empty()){
+	output.enqueue(operators.pop());
+      }
+
     // print queue after loop 
     cout <<"Postfix: ";
     
     while(!output.empty()){
       cout << output.dequeue() << " ";
-    }
-
-    while(!operators.empty()){
-      output.enqueue(operators.pop());
     }
 			   
 
