@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Stackqueue.h"
-#include <sstream> 
+#include <sstream>
+#include <stack>
 using namespace std;
 
 // precedence function
@@ -61,6 +62,35 @@ int main() {
 
     cout << endl;
 
+    stack<Node*> treeStack;
+    Queue tempQueue = output;// copies the output for treebuilding
+
+    while(!tempQueue.empty()){
+      char c = tempQueue.dequeue();
+
+      if(isdigit(c)){
+	treeStack.push(new Node(c));
+      }
+      else if(isOperator(c)){
+	Node* right = treeStack.top(); treeStack.pop();
+	Node* left  = treeStack.top(); treeStack.pop();
+
+	Node* opNode = new Node(c);
+	opNode->left = left;
+	opNode->right = right;
+
+	treeStack.push(opNode);
+      }
+    }
+
+    Node* root = treeStack.top();
+    
+
+
+
+
+
+    
     return 0;
 }
 
