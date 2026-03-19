@@ -20,6 +20,7 @@ bool isOperator(char c){
 void printPrefix(Node* root){
   if(!root) return;
 
+
 void printInfix(Node* root){
   if(!root) return;
 
