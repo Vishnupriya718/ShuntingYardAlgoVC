@@ -19,15 +19,17 @@ bool isOperator(char c){
 
 void printPrefix(Node* root){
   if(!root) return;
-  cout<< root->data << "";
+  cout<< root->data << " ";
   printPrefix(root->left);
   printPrefix(root->right);
 }
 
 void printInfix(Node* root){
   if(!root) return;
+
   printInfix(root->left);
-  printPrefix(root->right);
+  cout << root->data << " ";
+  printInfix(root->right);
 }
 
 
@@ -74,6 +76,7 @@ int main() {
 	output.enqueue(operators.pop());
       }
     
+    Queue tempQueue = output;// copies the output for treebuilding 
 
     // print queue after loop 
     cout <<"Postfix: ";
@@ -86,7 +89,6 @@ int main() {
     cout << endl;
 
     stack<Node*> treeStack;
-    Queue tempQueue = output;// copies the output for treebuilding
 
     while(!tempQueue.empty()){
       char c = tempQueue.dequeue();
