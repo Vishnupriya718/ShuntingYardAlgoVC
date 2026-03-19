@@ -19,16 +19,24 @@ bool isOperator(char c){
 
 void printPrefix(Node* root){
   if(!root) return;
-
+  cout<< root->data << "";
+  printPrefix(root->left);
+  printPrefix(root->right);
+}
 
 void printInfix(Node* root){
   if(!root) return;
-
+  printInfix(root->left);
+  printPrefix(root->right);
+}
 
 
 void printPostfix(Node* root){
-  if(!root) return; 
-
+  if(!root) return;
+  printPostfix(root->left);
+  printPostfix(root->right);
+  cout << root->data << "";
+}
 
 
 int main() {
@@ -65,6 +73,7 @@ int main() {
     while(!operators.empty()){
 	output.enqueue(operators.pop());
       }
+    
 
     // print queue after loop 
     cout <<"Postfix: ";
@@ -98,7 +107,18 @@ int main() {
     }
 
     Node* root = treeStack.top();
-    
+
+    cout << "Prefix: ";
+    printPrefix(root);
+    cout << endl;
+
+    cout << "Infix: ";
+    printInfix(root);
+    cout << endl;
+
+    cout << "Postfix (tree): ";
+    printPostfix(root);
+    cout << endl;
 
 
 
