@@ -17,6 +17,19 @@ bool isOperator(char c){
     return c=='+' || c=='-' || c=='*' || c=='/' || c=='^';
 }
 
+void printPrefix(Node* root){
+  if(!root) return;
+
+void printInfix(Node* root){
+  if(!root) return;
+
+
+
+void printPostfix(Node* root){
+  if(!root) return; 
+
+
+
 int main() {
 
     string expr = "3 + 4 * 2";
