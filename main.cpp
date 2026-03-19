@@ -1,10 +1,9 @@
 #include <iostream>
 #include "Stackqueue.h"
-#include <sstream>
 #include <stack>
 using namespace std;
 
-// precedence function
+// precedence
 int precedence(char op){
     if(op == '+' || op == '-') return 1;
     if(op == '*' || op == '/') return 2;
@@ -17,99 +16,86 @@ bool isOperator(char c){
     return c=='+' || c=='-' || c=='*' || c=='/' || c=='^';
 }
 
+// prefix
 void printPrefix(Node* root){
-  if(!root) return;
-  cout<< root->data << " ";
-  printPrefix(root->left);
-  printPrefix(root->right);
+    if(!root) return;
+    cout << root->data << " ";
+    printPrefix(root->left);
+    printPrefix(root->right);
 }
 
+// infix
 void printInfix(Node* root){
-  if(!root) return;
-
-  printInfix(root->left);
-  cout << root->data << " ";
-  printInfix(root->right);
+    if(!root) return;
+    printInfix(root->left);
+    cout << root->data << " ";
+    printInfix(root->right);
 }
 
-
+// postfix
 void printPostfix(Node* root){
-  if(!root) return;
-  printPostfix(root->left);
-  printPostfix(root->right);
-  cout << root->data << "";
+    if(!root) return;
+    printPostfix(root->left);
+    printPostfix(root->right);
+    cout << root->data << " ";
 }
 
-
-int main() {
-
-    string expr = "3 + 4 * 2";
+int main(){
 
     Stack operators;
     Queue output;
-    
-    stringstream ss(expr);
-    string token;
 
-    //process tokens
-    while(ss >> token){
-      char c = token[0];
+    cout << "Enter expression (with spaces): ";
 
-      if(isdigit(c)){
-	output.enqueue(c);
-	
+    char c;
+
+    // READ CHARACTER BY CHARACTER
+    while(cin >> c){
+
+        if(isdigit(c)){
+            output.enqueue(c);
+        }
+        else if(isOperator(c)){
+            while(!operators.empty() &&
+                  precedence(operators.peek()) >= precedence(c)){
+                output.enqueue(operators.pop());
+            }
+            operators.push(c);
+        }
+        else if(c == '='){  
+            break;  // use '=' to end input
+        }
     }
-      // if operator to the handle precendence
-      else if (isOperator(c)){
-	while (!operators.empty() &&
-	       precedence(operators.peek()) >= precedence(c)){
 
-	  output.enqueue(operators.pop());
-	}
-
-	operators.push(c);
-      }
-      
- }
-    // moving the operators first
+    // move remaining operators
     while(!operators.empty()){
-	output.enqueue(operators.pop());
-      }
-    
-    Queue tempQueue = output;// copies the output for treebuilding 
-
-    // print queue after loop 
-    cout <<"Postfix: ";
-    
-    while(!output.empty()){
-      cout << output.dequeue() << " ";
+        output.enqueue(operators.pop());
     }
-			   
 
-    cout << endl;
-
+    // BUILD TREE FROM POSTFIX
     stack<Node*> treeStack;
 
-    while(!tempQueue.empty()){
-      char c = tempQueue.dequeue();
+    while(!output.empty()){
+        char val = output.dequeue();
 
-      if(isdigit(c)){
-	treeStack.push(new Node(c));
-      }
-      else if(isOperator(c)){
-	Node* right = treeStack.top(); treeStack.pop();
-	Node* left  = treeStack.top(); treeStack.pop();
+        if(isdigit(val)){
+            treeStack.push(new Node(val));
+        }
+        else if(isOperator(val)){
+            Node* right = treeStack.top(); treeStack.pop();
+            Node* left  = treeStack.top(); treeStack.pop();
 
-	Node* opNode = new Node(c);
-	opNode->left = left;
-	opNode->right = right;
+            Node* opNode = new Node(val);
+            opNode->left = left;
+            opNode->right = right;
 
-	treeStack.push(opNode);
-      }
+            treeStack.push(opNode);
+        }
     }
 
     Node* root = treeStack.top();
 
+    // OUTPUT FROM TREE
     cout << "Prefix: ";
     printPrefix(root);
     cout << endl;
@@ -118,15 +104,9 @@ int main() {
     printInfix(root);
     cout << endl;
 
-    cout << "Postfix (tree): ";
+    cout << "Postfix: ";
     printPostfix(root);
     cout << endl;
 
-
-
-
-
-    
     return 0;
 }
-
